@@ -1,28 +1,20 @@
 var SpaceHipster = SpaceHipster || {};
 
 SpaceHipster.GameState = {
+  // Moved to Boot
 
-///////
-//Moved to Boot
-  //
-  // //initiate game settings
-  // init: function(currentLevel) {
-  //   this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-  //   this.game.physics.startSystem(Phaser.Physics.ARCADE);
-  //   this.PLAYER_SPEED = 200;
-  //   this.BULLET_SPEED = -1000;
-  //
-  //   //levels
-  //   this.numLevels = 3;
-  //   this.currentLevel = currentLevel ? currentLevel : 1;
-  //
-  // },
+  //initiate game settings
+  init: function(currentLevel) {
+    this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    this.game.physics.startSystem(Phaser.Physics.ARCADE);
+    this.PLAYER_SPEED = 200;
+    this.BULLET_SPEED = -1000;
 
-//
-/////
+    //levels
+    this.numLevels = 3;
+    this.currentLevel = currentLevel ? currentLevel : 1;
 
-/////
-//
+  },
 
   //load the game assets before the game starts
   preload: function() {
@@ -139,36 +131,28 @@ SpaceHipster.GameState = {
   },
 
 
-  loadLevel: function(){
-
-        console.log(this.currentLevel);
-
+  loadLevel: function () {
     this.currentEnemyIndex = 0;
-
     this.levelData = JSON.parse(this.game.cache.getText('level' + this.currentLevel));
-
-        console.log(JSON.parse(this.game.cache.getText('level1')));
-
-        
+    console.log(JSON.parse(this.game.cache.getText('level1')));
 
     //end of the level timer
-    this.endOfLevelTimer = this.game.time.events.add(this.levelData.duration * 1000, function(){
+    this.endOfLevelTimer = this.game.time.events.add(this.levelData.duration * 1000, function() {
       //stop music on new level
       this.orchestra.stop();
-      if(this.currentLevel < this.numLevels) {
+      if (this.currentLevel < this.numLevels) {
         this.currentLevel++;
-      }
-      else {
+      } else {
 
         this.currentLevel = 1;
       }
 
-          console.log(this.currentLevel);
+      console.log(this.currentLevel);
 
       this.game.state.start('GameState', true, false, this.currentLevel);
 
 
-          console.log('here');
+      console.log('here');
 
     }, this);
 
